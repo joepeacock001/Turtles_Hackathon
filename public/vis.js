@@ -1,6 +1,6 @@
-//src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false";
-console.log("getting desperate");
-function generate()
+
+
+    function generate()
 {
 	var out = [];
 	var result={
@@ -37,23 +37,105 @@ function generate()
 	return obj;
 }
 
-function loadZips()
+function pieChart()
 {
-// 	var xhr;
-// if (window.XMLHttpRequest) {
-//     xhr = new XMLHttpRequest();
-// } else if (window.ActiveXObject) {
-//     xhr = new ActiveXObject("Microsoft.XMLHTTP");
-// }
 
-// xhr.onreadystatechange = function(){alert(xhr.responseText);};
-// xhr.open("GET","zipcode.csv"); //assuming kgr.bss is plaintext
-// xhr.send();
-	console.log("here");
-	var res = Baby.parse("zipcode.csv");
-	console.log(res.data);
+var data = eval('('+generate()+')');
+var sumTot=0;
+var sumLost=0;
+for (i in data)
+{
+	sumTot+=data[i]['totHives'];
+	sumLost+=data[i]['numLost2014'];
+}
+var diff=sumTot-sumLost;
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Type');
+        data.addColumn('number', 'Hives');
+        data.addRows([
+          ['Lost', sumLost],
+          ['Survived',diff]
+          
+        ]);
+
+        // Set chart options
+        var options = {'title':'Bee Death',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+   var p = document.createElement("div");
+   p.innerHTML = '<div id="pie_div"/>'
 
 }
 
-loadZips();
 
+function barGraph()
+{
+	
+
+
+var data = eval('('+generate()+')');
+var sumLost12=0;
+var sumLost13=0;
+var sumLost14=0;
+for (i in data)
+{
+	sumTot+=data[i]['totHives'];
+	sumLost14+=data[i]['numLost2014'];
+	sumLost13+=data[i]['numLost2013'];
+	sumLost12+=data[i]['numLost2012'];
+}
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Type');
+        data.addColumn('number', 'Hives');
+        data.addRows([
+          ['2014', sumLost14],
+          ['2013', sumLost13],
+          ['2012', sumLost12]
+          
+        ]);
+
+        // Set chart options
+        var options = {'title':'Bee Deaths by Year',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+   var p = document.createElement("div");
+   p.innerHTML = '<div id="bar_div"/>'
+
+
+}
