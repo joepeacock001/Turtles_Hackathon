@@ -17,3 +17,5 @@ app.get('/survey', function(req, res) {
 app.get('/data', function(req, res) {
   res.sendFile(__dirname + '/public/data.html');
 });
+
+console.log('listening on port 9030');
