@@ -1,3 +1,4 @@
+var bodyParser = require('body-parser');
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
@@ -17,7 +18,7 @@ mongoose.connect('mongodb://localhost/beesurvey', function(err) {
 });
 
 //---DB Models---
-var surveySchema = mongoose.Schema({
+var Survey = mongoose.Schema({
   zip: String,
   totalHives: Number,
   hivesLost: [{
@@ -31,7 +32,7 @@ var surveySchema = mongoose.Schema({
   }
 });
 
-var Survey = mongoose.model('BeeSurveys', surveySchema);
+var Survey = mongoose.model('BeeSurveys', Survey);
 
 
 //---ViewRoutes---
@@ -49,8 +50,36 @@ app.get('/data', function(req, res) {
 
 //---DataRoutes
 
-app.post('/survey_submit', function (req, res) {
-  console.log(req.data);
-  res.send('Got a POST request');
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+app.post('/survey_submit', urlencodedParser, function (req, res) {
+  console.log(req.body);
+
+  var newSurvey = new Survey({
+        zip: req.body.zipcode,
+        totalHives: req.body.totalhives,
+        hivesLost: [
+        {
+          year: 2014,
+          numberLost: req.body.hiveslost2014
+        },
+        {
+          year: 2013,
+          numberLost: req.body.hiveslost2013
+        },
+        {
+          year: 2012,
+          numberLost: req.body.hiveslost2012
+        }
+        ],
+        comments: req.body.comments
+      });
+      newSurvey.save(function(err) {
+        if (err) {
+          throw err;
+        }
+      });
+
+  res.send(req.body);
 })
 
