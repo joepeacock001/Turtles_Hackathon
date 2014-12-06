@@ -47,8 +47,10 @@ app.get('/data', function(req, res) {
   res.sendFile(__dirname + '/public/data.html');
 });
 
-<<<<<<< HEAD
 //---DataRoutes
-=======
-console.log('listening on port 9030');
->>>>>>> Existing-Data
+
+app.post('/survey_submit', function (req, res) {
+  console.log(req.data);
+  res.send('Got a POST request');
+})
+
