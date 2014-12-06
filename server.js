@@ -2,6 +2,7 @@ var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
   mongoose = require('mongoose'),
+  Baby = require('babyparse'),
   users = {};
 
 server.listen(9030);
@@ -16,4 +17,8 @@ app.get('/survey', function(req, res) {
 
 app.get('/data', function(req, res) {
   res.sendFile(__dirname + '/public/data.html');
+});
+
+app.get('/vis', function(req, res) {
+  res.sendFile(__dirname + '/public/vis.html');
 });
