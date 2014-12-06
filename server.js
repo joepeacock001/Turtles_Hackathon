@@ -18,7 +18,7 @@ mongoose.connect('mongodb://localhost/beesurvey', function(err) {
 });
 
 //---DB Models---
-var surveySchema = mongoose.Schema({
+var Survey = mongoose.Schema({
   zip: String,
   totalHives: Number,
   hivesLost: [{
@@ -32,7 +32,7 @@ var surveySchema = mongoose.Schema({
   }
 });
 
-var Survey = mongoose.model('BeeSurveys', surveySchema);
+var Survey = mongoose.model('BeeSurveys', Survey);
 
 
 //---ViewRoutes---
@@ -54,6 +54,32 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.post('/survey_submit', urlencodedParser, function (req, res) {
   console.log(req.body);
+
+  var newSurvey = new Survey({
+        zip: req.body.zipcode,
+        totalHives: req.body.totalhives,
+        hivesLost: [
+        {
+          year: 2014,
+          numberLost: req.body.hiveslost2014
+        },
+        {
+          year: 2013,
+          numberLost: req.body.hiveslost2013
+        },
+        {
+          year: 2012,
+          numberLost: req.body.hiveslost2012
+        }
+        ],
+        comments: req.body.comments
+      });
+      newSurvey.save(function(err) {
+        if (err) {
+          throw err;
+        }
+      });
+
   res.send(req.body);
 })
 
