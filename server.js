@@ -80,6 +80,6 @@ app.post('/survey_submit', urlencodedParser, function (req, res) {
         }
       });
 
-  res.send(req.body);
+  res.sendFile(__dirname + '/public/success.html');
 })
 
