@@ -10,6 +10,8 @@
   "dependencies": {
     "express": "4.10.x",
     "mongoose": "3.8.x",
-    "body-parser": "1.10.x"
+    "body-parser": "1.10.x",
+    "babyparse": "0.2.1"
+
   }
 }

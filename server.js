@@ -3,6 +3,7 @@ var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
   mongoose = require('mongoose'),
+  Baby = require('babyparse'),
   users = {};
 
 server.listen(9030);
@@ -48,6 +49,10 @@ app.get('/data', function(req, res) {
   res.sendFile(__dirname + '/public/data.html');
 });
 
+app.get('/vis', function(req, res) {
+  res.sendFile(__dirname + '/public/vis.html');
+});
+
 //---DataRoutes
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -82,4 +87,3 @@ app.post('/survey_submit', urlencodedParser, function (req, res) {
 
   res.sendFile(__dirname + '/public/success.html');
 })
-
