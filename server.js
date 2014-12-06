@@ -47,4 +47,8 @@ app.get('/data', function(req, res) {
   res.sendFile(__dirname + '/public/data.html');
 });
 
+<<<<<<< HEAD
 //---DataRoutes
+=======
+console.log('listening on port 9030');
+>>>>>>> Existing-Data
