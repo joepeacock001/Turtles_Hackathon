@@ -10,6 +10,7 @@
     }  
   </style>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 </head>
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -46,26 +47,55 @@
       <div class="form-group">
         <label for="totalhives">Hives Lost</label>
          <div class="form-group">
-          <div class="row">
-            <div class="col-xs-6">
-              <select name="hiveyear" tabindex="" class="form-control col-sm-6" required="true">
-                <option value="-1">Year</option>
-                <option value="2005">2005</option>
-                <option value="2006">2006</option>
-                <option value="2007">2007</option>
-                <option value="2008">2008</option>
-                <option value="2009">2009</option>
-                <option value="2010">2010</option>
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option value="2013">2013</option>
-                <option value="2014">2014</option>
-              </select>
+
+            <div class="row" id="hiveslostbox1">
+              <div class="col-xs-2 col-sm-1">
+                <h4>2014</h4>
+              </div>
+              <div class="col-xs-5">
+                <input type="number"name="hiveslost2014" class="form-control" id="hivesLost" placeholder="#hiveslost" required="true">
+              </div>
+              <div class="col-xs-1" id="addyearbtncontainer1">
+                <button type="button" class="btn btn-default btn-success" id="addyearbtn1">
+                  <div class="glyphicon glyphicon-plus"></div>
+                </button>
+              </div>
+              </div>
+
+            <div class="row" id="hiveslostbox2" style="display:none;">
+                <div class="col-xs-2 col-sm-1">
+                  <h4>2013</h4>
+                </div>
+                <div class="col-xs-5">
+                  <input type="number"name="hiveslost2013" class="form-control" id="hivesLost" placeholder="#hiveslost" required="true">
+                </div>
+                <div class="col-xs-1" id="addyearbtncontainer2">
+                  <button type="button" class="btn btn-default btn-success" id="addyearbtn2">
+                    <div class="glyphicon glyphicon-plus"></div>
+                  </button>
+                </div>
+                <div class="col-xs-1" id="removeyearbtncontainer2" style="">
+                  <button type="button" class="btn btn-default btn-danger" id="removeyearbtn2">
+                    <div class="glyphicon glyphicon-minus"></div>
+                  </button>
+                </div>
             </div>
-            <div class="col-xs-6">
-              <input type="number"name="hiveslost" class="form-control col-sm-6" id="hivesLost" placeholder="#hiveslost" required="true">
+
+            <div class="row" id="hiveslostbox3" style="display:none;">
+                <div class="col-xs-2 col-sm-1">
+                  <h4>2012</h4>
+                </div>
+                <div class="col-xs-5">
+                  <input type="number"name="hiveslost2012" class="form-control" id="hivesLost" placeholder="#hiveslost" required="true">
+                </div>
+                <div class="col-xs-1" id="removeyearbtncontainer3">
+                  <button type="button" class="btn btn-default btn-danger" id="removeyearbtn3">
+                    <div class="glyphicon glyphicon-minus"></div>
+                  </button>
+                </div>
             </div>
-          </div>
+
+
         </div>
       </div>
       <div class="form-group">
@@ -78,5 +108,27 @@
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    $('#addyearbtn1').on('click', function(event) {
+      event.preventDefault();
+      $('#addyearbtncontainer1').hide();
+      $('#hiveslostbox2').show();
+    });
+    $('#addyearbtn2').on('click', function(event) {
+      event.preventDefault();
+      $('#addyearbtncontainer2').hide();
+      $('#hiveslostbox3').show();
+    });
+    $('#removeyearbtn2').on('click', function(event) {
+      event.preventDefault();
+      $('#hiveslostbox2').hide();
+      $('#addyearbtncontainer1').show();
+    });
+    $('#removeyearbtn3').on('click', function(event) {
+      event.preventDefault();
+      $('#hiveslostbox3').hide();
+      $('#addyearbtncontainer2').show();
+    });
+  </script>
 </body>
 </html>
