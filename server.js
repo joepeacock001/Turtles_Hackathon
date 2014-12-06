@@ -48,3 +48,8 @@ app.get('/data', function(req, res) {
 });
 
 //---DataRoutes
+
+app.post('/survey_submit', function (req, res) {
+  console.log(req.data);
+  res.send('Got a POST request');
+})
