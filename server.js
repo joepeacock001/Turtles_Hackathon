@@ -85,5 +85,5 @@ app.post('/survey_submit', urlencodedParser, function (req, res) {
         }
       });
 
-  res.sendFile(req.body);
+  res.send(req.body);
 })
