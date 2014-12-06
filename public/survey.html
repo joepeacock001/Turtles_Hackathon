@@ -33,7 +33,48 @@
     </div>
   </nav>
   <div class="container">
-    <h1>Welcome</h1>  
+    <h1>Survey</h1>  
+    <form role="form">
+      <div class="form-group">
+        <label for="zip">ZipCode</label>
+        <input class="form-control" id="zip" placeholder="Zip Code" required="true">
+      </div>
+      <div class="form-group">
+        <label for="totalhives">Total Hives</label>
+        <input type="number" class="form-control" id="totalhives" placeholder="#hives" required="true">
+      </div>
+      <div class="form-group">
+        <label for="totalhives">Hives Lost</label>
+         <div class="form-group">
+          <div class="row">
+            <div class="col-xs-6">
+              <select name="date0year" tabindex="" class="form-control col-sm-6" required="true">
+                <option value="-1">Year</option>
+                <option value="2005">2005</option>
+                <option value="2006">2006</option>
+                <option value="2007">2007</option>
+                <option value="2008">2008</option>
+                <option value="2009">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+              </select>
+            </div>
+            <div class="col-xs-6">
+              <input type="number" class="form-control col-sm-6" id="hivesLost" placeholder="#hiveslost" required="true">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="comments">Comments</label>
+        <textarea class="form-control" rows="3" id="comments" placeholder="Comments"></textarea>
+      </div>
+      
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
