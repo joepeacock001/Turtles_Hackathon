@@ -61,7 +61,7 @@ app.get('/poc', function(req, res) {
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-app.post('/survey_submit', urlencodedParser, function (req, res) {
+app.post('/api/survey_submit', urlencodedParser, function (req, res) {
   console.log(req.body);
 
   var newSurvey = new Survey({
@@ -90,4 +90,17 @@ app.post('/survey_submit', urlencodedParser, function (req, res) {
       });
 
   res.sendFile(__dirname + '/public/success.html');
-})
+});
+
+app.get('/api/survey_results', function (req, res) {
+  var query = Survey.find({});
+  query.exec(function (err, docs) {
+    if (err) {
+      throw err;
+    } else {
+      console.log(docs);
+      //res.body = docs;
+      res.send(docs)
+    }
+  });
+});
