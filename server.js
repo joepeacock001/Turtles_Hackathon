@@ -53,6 +53,10 @@ app.get('/vis', function(req, res) {
   res.sendFile(__dirname + '/public/vis.html');
 });
 
+app.get('/poc', function(req, res) {
+  res.sendFile(__dirname + '/public/poc.html');
+});
+
 //---DataRoutes
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })

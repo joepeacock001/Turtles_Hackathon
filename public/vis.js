@@ -139,3 +139,69 @@ for (i in data)
 
 
 }
+
+function heatMap()
+{
+
+
+function codeAddress(zip) {
+  //var address = document.getElementById('address').value;
+  var geocoder = new google.maps.Geocoder();
+
+  geocoder.geocode(zip, function(results, status) {
+  	console.log('here');
+    if (status == google.maps.GeocoderStatus.OK) {
+      //map.setCenter(results[0].geometry.location);
+      lat = results[0].geometry.location.lat();
+      lng = results[0].geometry.location.lng();
+      return {0:lat, 1:long};
+      // var marker = new google.maps.Marker({
+      //     map: map,
+      //     position: results[0].geometry.location
+      //});
+    } else {
+      //alert('Geocode was not successful for the following reason: ' + status);
+      
+    }
+  });
+  console.log('hhh');
+}
+
+var data = eval('('+generate()+')');
+
+var heatmapData = [];
+var sumT=0;
+var sumG=0;
+var count=0;
+for (i in data)
+{
+	var ll = codeAddress(data[i]['zip']);
+	
+	if (ll!=null)
+	{
+	heatmapData.push(new google.maps.LatLng(ll[0], ll[1]));
+	count++;
+	sumT+=ll[0];
+	sumG=ll[1];
+	}
+}
+console.log(sumT/count+"  "+sumG/count);
+var focus = new google.maps.LatLng(sumT/count, sumG/count);
+
+map = new google.maps.Map(document.getElementById('map-canvas'), {
+  center: focus,
+  zoom: 20
+  //mapTypeId: google.maps.MapTypeId.SATELLITE
+});
+
+var heatmap = new google.maps.visualization.HeatmapLayer({
+	data: heatmapData
+});
+heatmap.setMap(map);
+}
+
+
+function googleTest()
+{
+	
+}
