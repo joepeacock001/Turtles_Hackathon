@@ -1,6 +1,4 @@
-
-
-    function generate()
+function generate()
 {
 	var out = [];
 	var result={
@@ -24,7 +22,7 @@
 
 	for (i=0;i<1000;i++)
 	{
-		a=Math.round((Math.random()*99000 + 1000));
+		a=Math.round((Math.random()*90000 + 10000));
 		b=Math.round(Math.random()*200);
 		c=Math.round(Math.random()*b);
 		d=Math.round(Math.random()*(b-c));
@@ -36,11 +34,11 @@
 
 	return obj;
 }
-var data = eval('('+generate()+')');
-function pieChart(data)
+
+function pieChart()
 {
 
-
+var data = eval('('+generate()+')');
 var sumTot=0;
 var sumLost=0;
 for (i in data)
@@ -76,27 +74,27 @@ var diff=sumTot-sumLost;
                        'height':300};
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.PieChart(document.getElementById('pie_div'));
         chart.draw(data, options);
       }
 
    var p = document.createElement("div");
    p.innerHTML = '<div id="pie_div"/>'
-
+   return p;
 }
 
 
-function barGraph(data)
+function barGraph()
 {
 	
 
 
+var data = eval('('+generate()+')');
 var sumLost12=0;
 var sumLost13=0;
 var sumLost14=0;
 for (i in data)
 {
-	sumTot+=data[i]['totHives'];
 	sumLost14+=data[i]['numLost2014'];
 	sumLost13+=data[i]['numLost2013'];
 	sumLost12+=data[i]['numLost2012'];
@@ -129,74 +127,80 @@ for (i in data)
                        'height':300};
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.BarChart(document.getElementById('bar_div'));
         chart.draw(data, options);
       }
 
    var p = document.createElement("div");
    p.innerHTML = '<div id="bar_div"/>'
-
+   
 
 }
 
-function heatMap(data)
+function heatMap()
 {
-
-
-function codeAddress(zip) {
-  //var address = document.getElementById('address').value;
-  var geocoder = new google.maps.Geocoder();
-
-  geocoder.geocode(zip, function(results, status) {
-  	console.log('here');
-    if (status == google.maps.GeocoderStatus.OK) {
-      //map.setCenter(results[0].geometry.location);
-      lat = results[0].geometry.location.lat();
-      lng = results[0].geometry.location.lng();
-      return {0:lat, 1:long};
-      // var marker = new google.maps.Marker({
-      //     map: map,
-      //     position: results[0].geometry.location
-      //});
-    } else {
-      //alert('Geocode was not successful for the following reason: ' + status);
-      
-    }
-  });
-  console.log('hhh');
-}
-
-
+	var data = eval('('+generate()+')');
 var heatmapData = [];
 var sumT=0;
 var sumG=0;
 var count=0;
-for (i in data)
+var geocoder;
+//var map;
+var max=4;
+var zips = [];
+for (var i=0;i<max;i++)
 {
-	var ll = codeAddress(data[i]['zip']);
-	
-	if (ll!=null)
-	{
-	heatmapData.push(new google.maps.LatLng(ll[0], ll[1]));
-	count++;
-	sumT+=ll[0];
-	sumG=ll[1];
-	}
+	zips.push(data[i]['zip'])
 }
+codeAddress(zips);
+
+function codeAddress(zips) {
+  //var address = document.getElementById('address').value;
+   var c=1;
+   geocoder = new google.maps.Geocoder();
+   for (i=0;i<zips.length;i++)
+{
+   var lat=0;
+   var lng=0;
+  // console.log(zip);
+  geocoder.geocode({'address':zips[i].toString()}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      //map.setCenter(results[0].geometry.location);
+      lat = results[0].geometry.location.lat();
+      lng = results[0].geometry.location.lng();
+     // console.log({0:lat, 1:lng});
+	heatmapData.push(lat, lng);
+
+	count++;
+	sumT+=lat;
+	sumG=lng; 
+
+    } else {
+      console.log(status);
+      
+    }
+    c++;
+    if (c==zips.length) genMap();
+  });
+}}
+
+
+
+function genMap()
+{
+
 console.log(sumT/count+"  "+sumG/count);
-var focus = new google.maps.LatLng(sumT/count, sumG/count);
+//var focus = new google.maps.LatLng(sumT/count, sumG/count);
 
 map = new google.maps.Map(document.getElementById('map-canvas'), {
   center: focus,
   zoom: 20
-  //mapTypeId: google.maps.MapTypeId.SATELLITE
+ // mapTypeId: google.maps.MapTypeId.SATELLITE
 });
-
 var heatmap = new google.maps.visualization.HeatmapLayer({
 	data: heatmapData
 });
+
 heatmap.setMap(map);
 }
-
-
-
+}
