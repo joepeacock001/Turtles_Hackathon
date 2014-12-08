@@ -56,8 +56,8 @@ function generate()
 
 function pieChart()
 {
-
 var data = eval('('+generate()+')');
+
 var sumTot=0;
 var sumLost=0;
 for (i in data)
@@ -105,10 +105,9 @@ var diff=sumTot-sumLost;
 
 function barGraph()
 {
-	
+	var data = eval('('+generate()+')');
 
 
-var data = eval('('+generate()+')');
 var sumLost12=0;
 var sumLost13=0;
 var sumLost14=0;
@@ -156,76 +155,8 @@ for (i in data)
 
 }
 
-function heatMap()
-{
-	var data = eval('('+generate()+')');
-var heatmapData = [];
-var sumT=0;
-var sumG=0;
-var count=0;
-var geocoder;
-//var map;
-var max=4;
-var zips = [];
-for (var i=0;i<max;i++)
-{
-	zips.push(data[i]['zip'])
-}
-codeAddress(zips);
-
-function codeAddress(zips) {
-  //var address = document.getElementById('address').value;
-   var c=1;
-   geocoder = new google.maps.Geocoder();
-   for (i=0;i<zips.length;i++)
-{
-   var lat=0;
-   var lng=0;
-  // console.log(zip);
-  geocoder.geocode({'address':zips[i].toString()}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      //map.setCenter(results[0].geometry.location);
-      lat = results[0].geometry.location.lat();
-      lng = results[0].geometry.location.lng();
-     // console.log({0:lat, 1:lng});
-	heatmapData.push(lat, lng);
-
-	count++;
-	sumT+=lat;
-	sumG=lng; 
-
-    } else {
-      console.log(status);
-      
-    }
-    c++;
-    if (c==zips.length) genMap();
-  });
-}}
-
-
-
-function genMap()
-{
-
-console.log(sumT/count+"  "+sumG/count);
-//var focus = new google.maps.LatLng(sumT/count, sumG/count);
-
-map = new google.maps.Map(document.getElementById('map-canvas'), {
-  center: focus,
-  zoom: 20
- // mapTypeId: google.maps.MapTypeId.SATELLITE
-});
-var heatmap = new google.maps.visualization.HeatmapLayer({
-	data: heatmapData
-});
-
-heatmap.setMap(map);
-}
-}
 barGraph();
 pieChart();
-heatMap();
 
 
 
@@ -257,23 +188,20 @@ heatMap();
     </div>
   </nav>
   <div class="container">
-    <div class="col-sm-12"><h1>Survey Results</h1>  </div>
+    <div class="col-sm-12"><h1>Survey Results</h1> <h3>Unfortunately, we do not have any collected data for you. Feel free to test our visualization on randomly generated data!</h3> </div>
   
   <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
 
 <button type="button" class="btn btn-primary"  onclick="$('#pie_div').toggle();">Generate Test Pie Chart</button>
 <div id="pie_div" style="display: none">
 </div>
 </div>
-<div class="col-sm-4">
+<div class="col-sm-6">
 <button type="button" class="btn btn-primary" onclick="$('#bar_div').toggle();">Generate Test Bar Graph</button>
 <div id="bar_div" style="display: none">
 </div></div>
-<div class="col-sm-4">
-<button type="button" class="btn btn-primary" onclick="$('#map-canvas').toggle();">Generate Test Heatmap</button>
-<div id="map-canvas" style="display: none"></div>
-</div>
+
 </div>
 </div>
 
