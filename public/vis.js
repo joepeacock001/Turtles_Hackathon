@@ -36,11 +36,11 @@
 
 	return obj;
 }
-
-function pieChart()
+var data = eval('('+generate()+')');
+function pieChart(data)
 {
 
-var data = eval('('+generate()+')');
+
 var sumTot=0;
 var sumLost=0;
 for (i in data)
@@ -86,12 +86,11 @@ var diff=sumTot-sumLost;
 }
 
 
-function barGraph()
+function barGraph(data)
 {
 	
 
 
-var data = eval('('+generate()+')');
 var sumLost12=0;
 var sumLost13=0;
 var sumLost14=0;
@@ -140,7 +139,7 @@ for (i in data)
 
 }
 
-function heatMap()
+function heatMap(data)
 {
 
 
@@ -167,7 +166,6 @@ function codeAddress(zip) {
   console.log('hhh');
 }
 
-var data = eval('('+generate()+')');
 
 var heatmapData = [];
 var sumT=0;
@@ -201,7 +199,4 @@ heatmap.setMap(map);
 }
 
 
-function googleTest()
-{
-	
-}
+
