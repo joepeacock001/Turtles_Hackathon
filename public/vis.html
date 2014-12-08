@@ -4,52 +4,105 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bee Rescue - Data</title>
-  <style type="text/css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <style type="text/css">
     body {
       padding-top: 50px;
+    }
+    .navbar-inverse{
+      background-color:#FFCB00;
+    }
+    .navbar-inverse .navbar-nav>li>a {
+      color: #000;
+    }  
+    .navbar-inverse .navbar-brand {
+      color: #000;
     }  
   </style>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Bee Rescue</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/survey">Report</a></li>
+          <li><a href="/data">Data</a></li>
+          <li class="active"><a href="/vis">Survey Results</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div class="container">
+    <div class="col-sm-12"><h1>Survey Results</h1>  </div>
+  
+  <div class="row">
+        <div class="col-sm-4">
+
+<button type="button" class="btn btn-primary"  onclick="$('#pie_div').toggle();">Generate Test Pie Chart</button>
+<div id="pie_div" style="display: none">
+</div>
+</div>
+<div class="col-sm-4">
+<button type="button" class="btn btn-primary" onclick="$('#bar_div').toggle();">Generate Test Bar Graph</button>
+<div id="bar_div" style="display: none">
+</div></div>
+<div class="col-sm-4">
+<button type="button" class="btn btn-primary" onclick="$('#map-canvas').toggle();">Generate Test Heatmap</button>
+<div id="map-canvas" style="display: none"></div>
+</div>
+</div>
+</div>
+
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3" type="text/javascript"></script>
    <script type="text/javascript">
 
 function generate()
 {
-	var out = [];
-	var result={
-		zip:"",
-		totHives:0,
-		numLost2014:0,
-		numLost2013:0,
-		numLost2012:0,
-		comments:""
-	};
+  var out = [];
+  var result={
+    zip:"",
+    totHives:0,
+    numLost2014:0,
+    numLost2013:0,
+    numLost2012:0,
+    comments:""
+  };
 
-	function Result(zip,totHives, numLost2014,numLost2013, numLost2012, comments)
-	{
-		this.zip=zip;
-		this.totHives=totHives;
-		this.numLost2012=numLost2012;
-		this.numLost2013=numLost2013;
-		this.numLost2014=numLost2014;
-		this.comments=comments;
-	}
+  function Result(zip,totHives, numLost2014,numLost2013, numLost2012, comments)
+  {
+    this.zip=zip;
+    this.totHives=totHives;
+    this.numLost2012=numLost2012;
+    this.numLost2013=numLost2013;
+    this.numLost2014=numLost2014;
+    this.comments=comments;
+  }
 
-	for (i=0;i<1000;i++)
-	{
-		a=Math.round((Math.random()*90000 + 10000));
-		b=Math.round(Math.random()*200);
-		c=Math.round(Math.random()*b);
-		d=Math.round(Math.random()*(b-c));
-		e=Math.round(Math.random()*(b-(c+d)));
-		var temp=new Result(a,b,c,d,e,"");
-		out[i]=temp;
-	}
-	var obj=JSON.stringify(out);
+  for (i=0;i<1000;i++)
+  {
+    a=Math.round((Math.random()*90000 + 10000));
+    b=Math.round(Math.random()*200);
+    c=Math.round(Math.random()*b);
+    d=Math.round(Math.random()*(b-c));
+    e=Math.round(Math.random()*(b-(c+d)));
+    var temp=new Result(a,b,c,d,e,"");
+    out[i]=temp;
+  }
+  var obj=JSON.stringify(out);
 
-	return obj;
+  return obj;
 }
 
 function pieChart()
@@ -60,8 +113,8 @@ var sumTot=0;
 var sumLost=0;
 for (i in data)
 {
-	sumTot+=data[i]['totHives'];
-	sumLost+=data[i]['numLost2014'];
+  sumTot+=data[i]['totHives'];
+  sumLost+=data[i]['numLost2014'];
 }
 var diff=sumTot-sumLost;
       // Load the Visualization API and the piechart package.
@@ -103,7 +156,7 @@ var diff=sumTot-sumLost;
 
 function barGraph()
 {
-	
+  
 
 
 var data = eval('('+generate()+')');
@@ -112,9 +165,9 @@ var sumLost13=0;
 var sumLost14=0;
 for (i in data)
 {
-	sumLost14+=data[i]['numLost2014'];
-	sumLost13+=data[i]['numLost2013'];
-	sumLost12+=data[i]['numLost2012'];
+  sumLost14+=data[i]['numLost2014'];
+  sumLost13+=data[i]['numLost2013'];
+  sumLost12+=data[i]['numLost2012'];
 }
       // Load the Visualization API and the piechart package.
       google.load('visualization', '1.0', {'packages':['corechart']});
@@ -166,7 +219,7 @@ function codeAddress(zip) {
    var lng=0;
    //console.log(zip);
   geocoder.geocode(zip, function(results, status) {
-  	console.log('here');
+    console.log('here');
     if (status == google.maps.GeocoderStatus.OK) {
       //map.setCenter(results[0].geometry.location);
       lat = results[0].geometry.location.lat();
@@ -190,15 +243,15 @@ var sumG=0;
 var count=0;
 for (i in data)
 {
-	var ll = codeAddress(data[i]['zip']);
-	
-	if (ll!=null)
-	{
-	heatmapData.push(new google.maps.LatLng(ll[0], ll[1]));
-	count++;
-	sumT+=ll[0];
-	sumG=ll[1];
-	}
+  var ll = codeAddress(data[i]['zip']);
+  
+  if (ll!=null)
+  {
+  heatmapData.push(new google.maps.LatLng(ll[0], ll[1]));
+  count++;
+  sumT+=ll[0];
+  sumG=ll[1];
+  }
 }
 console.log(sumT/count+"  "+sumG/count);
 var focus = new google.maps.LatLng(sumT/count, sumG/count);
@@ -210,7 +263,7 @@ map = new google.maps.Map(document.getElementById('map-canvas'), {
 });
 
 var heatmap = new google.maps.visualization.HeatmapLayer({
-	data: heatmapData
+  data: heatmapData
 });
 heatmap.setMap(map);
 }
@@ -224,54 +277,6 @@ pieChart();
 
 
 </script>
-
-</head>
-<body>
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">Bee Rescue</a>
-      </div>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/survey">Report</a></li>
-          <li><a href="/data">Data</a></li>
-          <li class="active"><a href="/vis">Survey Results</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </nav>
-  <div class="container">
-    <div class="col-sm-12"><h1>Survey Results</h1>  </div>
-  
-  <div class="row">
-        <div class="col-sm-4">
-
-<button type="button" class="btn btn-primary"  onclick="$('#pie_div').toggle();">Generate Test Pie Chart</button>
-<div id="pie_div" style="display: none">
-</div>
-</div>
-<div class="col-sm-4">
-<button type="button" class="btn btn-primary" onclick="$('#bar_div').toggle();">Generate Test Bar Graph</button>
-<div id="bar_div" style="display: none">
-</div></div>
-<div class="col-sm-4">
-<button type="button" class="btn btn-primary" onclick="$('#map-canvas').toggle();">Generate Test Heatmap</button>
-<div id="map-canvas" style="display: none"></div>
-</div>
-</div>
-</div>
-
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </body>
 
 </html>
