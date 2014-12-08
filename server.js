@@ -45,10 +45,6 @@ app.get('/survey', function(req, res) {
   res.sendFile(__dirname + '/public/survey.html');
 });
 
-app.get('/data', function(req, res) {
-  res.sendFile(__dirname + '/public/data.html');
-});
-
 app.get('/vis', function(req, res) {
   res.sendFile(__dirname + '/public/vis.html');
 });
