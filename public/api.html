@@ -35,18 +35,20 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="/survey">Report</a></li>
           <li><a href="/vis">Survey Results</a></li>
-          <li><a href="/docs">Docs</a></li>
+          <li class="active"><a href="/docs">Docs</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
   </nav>
   <div class="container">
-    <h1>Save the bees!</h1>  
+    <h1>Use our data</h1>  
     <div class="well">
-           <h4> The aim of this site is to more accurately collect and display data about Colony Collapse disorder. Colony collapse disorder is when European worker honey bees suddenly disappear from a colony. In latter part of 2006 there was a drastic rise in the number of disappearances of western honeybee colonies in North America. There were similar reports across a vast majority of Europe. The implications of this are incredibly alarming. Many economies rely on crops that are pollinated by bees. More importantly bees are responsible for pollinating about one third of crops in the United States. Our site provides and easy way for bee farmers to report their losses. We then make this data open source for people to easily consume and study.</h4>
+           <h4> To consume our api make a GET request to : http://uekkf9765868.ellery44.koding.io:9030//api/survey_results</h4>
+           This will return an array of every survey ever submitted in JSON format
+
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

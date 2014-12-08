@@ -53,6 +53,10 @@ app.get('/poc', function(req, res) {
   res.sendFile(__dirname + '/public/poc.html');
 });
 
+app.get('/docs', function(req, res) {
+  res.sendFile(__dirname + '/public/api.html');
+});
+
 //---DataRoutes
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
