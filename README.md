@@ -14,6 +14,10 @@ So, problem established.  But on twitter, #beedeath has shown up twice since Hal
 
 <h1>Screenshots</h1>
 
+![Survey](http://i.imgur.com/yRF4vgx.png)
+![Home](http://i.imgur.com/wiQAWmg.png)
+![Bar Graph](http://i.imgur.com/ESPyWDS.png)
+![API](http://i.imgur.com/K6V0nvs.png)
 
 <h1>APIs Used</h1>
 Google visualization API.
